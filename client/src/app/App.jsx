@@ -1,8 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
-
+import cameraIcon from '../icons/camera.png';
+import micIcon from '../icons/mic.png';
+import phoneIcon from '../icons/phone.png';
 function App() {
+  const navigate = useNavigate();
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
+  const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const toggleAudio = () => {
+    const localStream = myVideoRef.current.srcObject;
+    const audioTracks = localStream.getAudioTracks();
+
+    audioTracks.forEach((track) => {
+      track.enabled = !track.enabled;
+      setIsAudioMuted(!track.enabled);
+    });
+  };
+
+  // Function to toggle video mute
+  const toggleVideo = () => {
+    const localStream = myVideoRef.current.srcObject;
+    const videoTracks = localStream.getVideoTracks();
+
+    videoTracks.forEach((track) => {
+      track.enabled = !track.enabled;
+      setIsVideoMuted(!track.enabled);
+    });
+  };
+  const leaveRoom = () => {
+    navigate("/");
+    if (peer) {
+      peer.close();
+    }
+    socket.emit("leave");
+    // Add any additional cleanup or redirection logic if needed
+  };
+
+ 
   let peer;
   let roomid;
   let type;
@@ -11,6 +47,13 @@ function App() {
   const myVideoRef = useRef(null);
   const strangerVideoRef = useRef(null);
   const [spinnerVisible, setSpinnerVisible] = useState(true);
+  const servers = {
+    iceServers: [
+      {
+        urls: ["stun:stun.arbuz.ru:3478", "stun:stun.bahnhof.net:3478"],
+      },
+    ],
+  };
 
   function start() {
     navigator.mediaDevices
@@ -47,7 +90,7 @@ function App() {
     remoteSocket = id;
     console.log("remote id" + remoteSocket);
     setSpinnerVisible(false);
-    peer = new RTCPeerConnection();
+    peer = new RTCPeerConnection(servers);
     peer.onnegotiationneeded = async (e) => {
       if (peer) {
         webrtc();
@@ -71,7 +114,6 @@ function App() {
     }
   }
 
-
   socket.on("sdp:reply", async ({ sdp, from }) => {
     if (peer) {
       await peer.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -90,20 +132,39 @@ function App() {
     }
   });
 
-  socket.on('disconnected', () => {
-   console.log('disconnected')
-  })
+  socket.on("disconnected", () => {
+    console.log("disconnected");
+  });
+  const navigateToOtherRoute = () => {
+    // Navigate to the desired route
+    history.push("/");
+  };
 
   return (
     <>
       {spinnerVisible && (
         <div className="modal">
+          <div class="custom-loader"></div>
           <span id="spinner">Waiting For Someone...</span>
         </div>
       )}
       <div className="video-holder">
         <video autoPlay ref={myVideoRef} id="my-video"></video>
         <video autoPlay ref={strangerVideoRef} id="video"></video>
+
+        <div id="controls">
+          <div className="control-container" id="camera-btn" onClick={toggleVideo}>
+            <img src={cameraIcon} alt="Camera" />
+          </div>
+
+          <div className="control-container" id="mic-btn" onClick={toggleAudio}>
+            <img src={micIcon} alt="Microphone" />
+          </div>
+
+          <div className="control-container" id="leave-btn" onClick={leaveRoom}>
+            <img src={phoneIcon} alt="Phone" />
+          </div>
+        </div>
       </div>
     </>
   );
