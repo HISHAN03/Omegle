@@ -18,9 +18,7 @@ const io = socketIO(server, {
 
 io.on("connection", (socket) => {
   online++;
-
   console.log(`A user connected with id ${socket.id}`);
-
   socket.on("start", (cb) => {
     handelStart(roomArr, socket, cb, io);
   });
@@ -47,20 +45,24 @@ io.on("connection", (socket) => {
       }
     }
   });
-  socket.on("leave", () => {
-    online--;
-    io.emit("online", online);
-    console.log(online);
-    handelDisconnect(socket.id, roomArr, io);
-  });
-  
 
-  socket.on("disconnect", () => {
+  
+  socket.on("leave", () => {  
+    console.log("leave reached here");
     online--;
     io.emit("online", online);
+    socket.disconnect();
     console.log(online);
     handelDisconnect(socket.id, roomArr, io);
   });
+
+  // socket.on("disconnect", () => {
+  //   online--;
+  //   io.emit("online", online);
+  //   console.log(online);
+  //   handelDisconnect(socket.id, roomArr, io);
+    
+  // });
 });
 
 const PORT = process.env.PORT || 8000;

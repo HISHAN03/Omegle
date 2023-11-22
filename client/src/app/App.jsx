@@ -2,13 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
-import cameraIcon from '../icons/camera.png';
-import micIcon from '../icons/mic.png';
-import phoneIcon from '../icons/phone.png';
+import cameraIcon from "../icons/camera.png";
+import micIcon from "../icons/mic.png";
+import phoneIcon from "../icons/phone.png";
+
 function App() {
+  let peer;
+  let roomid;
+  let type;
+  let remoteSocket;
   const navigate = useNavigate();
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const [socket, setSocket] = useState(io("http://localhost:8000"));
+  const myVideoRef = useRef(null);
+  const strangerVideoRef = useRef(null);
+  const [spinnerVisible, setSpinnerVisible] = useState(true);
   const toggleAudio = () => {
     const localStream = myVideoRef.current.srcObject;
     const audioTracks = localStream.getAudioTracks();
@@ -19,7 +28,6 @@ function App() {
     });
   };
 
-  // Function to toggle video mute
   const toggleVideo = () => {
     const localStream = myVideoRef.current.srcObject;
     const videoTracks = localStream.getVideoTracks();
@@ -29,24 +37,6 @@ function App() {
       setIsVideoMuted(!track.enabled);
     });
   };
-  const leaveRoom = () => {
-    navigate("/");
-    if (peer) {
-      peer.close();
-    }
-    socket.emit("leave");
-    // Add any additional cleanup or redirection logic if needed
-  };
-
- 
-  let peer;
-  let roomid;
-  let type;
-  let remoteSocket;
-  const [socket, setSocket] = useState(io("http://localhost:8000"));
-  const myVideoRef = useRef(null);
-  const strangerVideoRef = useRef(null);
-  const [spinnerVisible, setSpinnerVisible] = useState(true);
   const servers = {
     iceServers: [
       {
@@ -79,6 +69,9 @@ function App() {
       type = person;
       console.log(type);
     });
+
+
+    
   }, []);
 
   socket.on("roomid", (id) => {
@@ -113,6 +106,12 @@ function App() {
       console.log("offer created,set and sent to server");
     }
   }
+ 
+  
+
+
+
+
 
   socket.on("sdp:reply", async ({ sdp, from }) => {
     if (peer) {
@@ -132,13 +131,20 @@ function App() {
     }
   });
 
-  socket.on("disconnected", () => {
-    console.log("disconnected");
-  });
-  const navigateToOtherRoute = () => {
-    // Navigate to the desired route
-    history.push("/");
+
+  const leaveRoom = () => {
+    console.log("function reached here leave room");  
+    socket.emit("leave");
+    navigate('/')
+    
   };
+
+
+  socket.on("disconnected", () => {
+    peer.close()
+    console.log("disconnected");
+    navigate('/')
+  });
 
   return (
     <>
@@ -153,7 +159,11 @@ function App() {
         <video autoPlay ref={strangerVideoRef} id="video"></video>
 
         <div id="controls">
-          <div className="control-container" id="camera-btn" onClick={toggleVideo}>
+          <div
+            className="control-container"
+            id="camera-btn"
+            onClick={toggleVideo}
+          >
             <img src={cameraIcon} alt="Camera" />
           </div>
 
@@ -161,7 +171,7 @@ function App() {
             <img src={micIcon} alt="Microphone" />
           </div>
 
-          <div className="control-container" id="leave-btn" onClick={leaveRoom}>
+          <div className="control-container" id="leave-btn" onClick={() => leaveRoom()}>
             <img src={phoneIcon} alt="Phone" />
           </div>
         </div>
