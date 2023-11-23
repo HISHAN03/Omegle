@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const { handelStart, getType, handelDisconnect } = require("./src/function");
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173","https://omegle-mzeh.onrender.com"],
   methods: ["GET", "POST"],
 };
 let online = 0;
@@ -56,13 +56,6 @@ io.on("connection", (socket) => {
     handelDisconnect(socket.id, roomArr, io);
   });
 
-  // socket.on("disconnect", () => {
-  //   online--;
-  //   io.emit("online", online);
-  //   console.log(online);
-  //   handelDisconnect(socket.id, roomArr, io);
-    
-  // });
 });
 
 const PORT = process.env.PORT || 8000;

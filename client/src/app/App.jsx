@@ -14,7 +14,7 @@ function App() {
   const navigate = useNavigate();
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
-  const [socket, setSocket] = useState(io("http://localhost:8000"));
+  const [socket, setSocket] = useState(io("https://ombackend.onrender.com"));
   const myVideoRef = useRef(null);
   const strangerVideoRef = useRef(null);
   const [spinnerVisible, setSpinnerVisible] = useState(true);
@@ -117,8 +117,7 @@ function App() {
   socket.on("ice:reply", async ({ candidate, from }) => {
     if (peer) {
       await peer.addIceCandidate(candidate);
-    }
-  });
+    }});
 
   const leaveRoom = () => {
     console.log("function reached here leave room");
