@@ -21,7 +21,6 @@ function App() {
   const toggleAudio = () => {
     const localStream = myVideoRef.current.srcObject;
     const audioTracks = localStream.getAudioTracks();
-
     audioTracks.forEach((track) => {
       track.enabled = !track.enabled;
       setIsAudioMuted(!track.enabled);
@@ -52,7 +51,6 @@ function App() {
         if (peer) {
           myVideoRef.current.srcObject = stream;
           stream.getTracks().forEach((track) => peer.addTrack(track, stream));
-
           peer.ontrack = (e) => {
             strangerVideoRef.current.srcObject = e.streams[0];
             strangerVideoRef.current.play();
@@ -69,9 +67,6 @@ function App() {
       type = person;
       console.log(type);
     });
-
-
-    
   }, []);
 
   socket.on("roomid", (id) => {
@@ -106,12 +101,6 @@ function App() {
       console.log("offer created,set and sent to server");
     }
   }
- 
-  
-
-
-
-
 
   socket.on("sdp:reply", async ({ sdp, from }) => {
     if (peer) {
@@ -131,19 +120,18 @@ function App() {
     }
   });
 
-
   const leaveRoom = () => {
-    console.log("function reached here leave room");  
+    console.log("function reached here leave room");
     socket.emit("leave");
-    navigate('/')
-    
+    navigate("/");
+    window.location.reload(true);
   };
 
-
   socket.on("disconnected", () => {
-    peer.close()
+    peer.close();
     console.log("disconnected");
-    navigate('/')
+    navigate("/");
+    socket.emit("leave");
   });
 
   return (
@@ -171,7 +159,11 @@ function App() {
             <img src={micIcon} alt="Microphone" />
           </div>
 
-          <div className="control-container" id="leave-btn" onClick={() => leaveRoom()}>
+          <div
+            className="control-container"
+            id="leave-btn"
+            onClick={() => leaveRoom()}
+          >
             <img src={phoneIcon} alt="Phone" />
           </div>
         </div>

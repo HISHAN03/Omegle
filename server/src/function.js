@@ -88,7 +88,7 @@ function handelDisconnect(disconnectedId, roomArr, io) {
 }
 
 module.exports = {
-  handelStart,
+  handelStart,  
   getType,
-  handelDisconnect,
+  handelDisconnect
 };
