@@ -54,9 +54,7 @@ io.on("connection", (socket) => {
     socket.disconnect();
     console.log(online);
     handelDisconnect(socket.id, roomArr, io);
-  });
-
-});
+  });});
 
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
