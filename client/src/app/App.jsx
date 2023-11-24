@@ -15,6 +15,8 @@ function App() {
   const [isAudioMuted, setIsAudioMuted] = useState(false);
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const [socket, setSocket] = useState(io("https://ombackend.onrender.com"));
+  
+
   const myVideoRef = useRef(null);
   const strangerVideoRef = useRef(null);
   const [spinnerVisible, setSpinnerVisible] = useState(true);
