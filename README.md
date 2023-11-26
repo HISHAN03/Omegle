@@ -1,55 +1,72 @@
-# Omegle Clone
+# Omegle Clone🎥
+<br>
 
-## Overview
+## Overview🚀
+<br>
+This is a omegle clone web app which where two individuals can connect through video calls.
+This project is developed as an "Internship-project" for my second-year internship and also as a exploration of WebRTC technology, diving deep into its workings and implementation. The primary focus is on understanding the establishing of peer-to-peer connections using webrtc.
 
-Welcome to the Omegle Clone project! This project aims to replicate the functionality of the popular online chat platform, Omegle, allowing users to connect with strangers for text-based conversations.
 
-### Features
 
-- **Random Chat**: Connect with random users for anonymous conversations.
-- **Text-based Communication**: Engage in text-based chats with strangers.
-- **Simple and Intuitive Interface**: User-friendly design for a seamless chatting experience.
-- **Responsive Design**: Accessible and functional across various devices.
+## peer-to-peer🔗
+<br>
 
-### Technologies Used
+- In simple terms, "peer-to-peer" means a direct connection or interaction between equals, without a middleman.
+- peer-to-peer often refers to computers or devices connecting directly to share information or resources without relying on a central server
 
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Node.js, Express.js
-- **Real-time Communication**: WebSocket for instant messaging
-- **Database**: [Specify if any]
+<br>
 
-### Getting Started
+![webrtc](https://github.com/HISHAN03/Gdocs/assets/108483712/9760e43e-0405-4b7c-8597-8eebc90896e3)
 
-To run the Omegle Clone locally, follow these steps:
+- At first boath browsers need to use a central server to exchange different objects
+- after the exchange happens.the browsers can communicate directly
+- even if the server goes down the browsers will be still connected
+ 
 
-1. **Clone the Repository**:
-    ```bash
-    git clone https://github.com/your-username/omegle-clone.git
-    cd omegle-clone
-    ```
+## Technologies Used💻
+<br>
 
-2. **Install Dependencies**:
-    ```bash
-    npm install
-    ```
+**web-rtc**: Communication Protocol
+ ### Frontend🌐
+- **React**
+- **socket.io-client** 
+ ### Backend⚙️
+- **nodejs** 
+- **express**
+- **CORS**
+- **socket.io**
 
-3. **Run the Application**:
-    ```bash
-    npm start
-    ```
+## Installation🚀
 
-4. Open your browser and navigate to `http://localhost:3000` to access the application.
+To run the app locally, follow these steps:
 
-### Contributing
+1. **Clone the repository**
 
-Contributions are welcome! If you'd like to contribute to the project, please follow these guidelines:
+   ```sh
+   git clone git@github.com:HISHAN03/Omegle.git
+   cd Omegle
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix: `git checkout -b feature-name`.
-3. Make your changes and commit them: `git commit -m 'Description of changes'`.
-4. Push your changes to your fork: `git push origin feature-name`.
-5. Open a pull request with a detailed description of your changes.
+2. **Install Dependencies**
+   ```sh
+   # Server
+     cd server
+     npm install
+   # Client
+     cd ../client
+     npm install
+   
+3. **Run the app**
+   ```sh
+   open terminal, run the client:
+   cd client
+   npm run dev
+4. **No need to run server**
+   ```sh
+    backend code is already deployed online using render
+   
+5. **Access the app**
+   ```sh
+     Open your browser and go to http://localhost:5173.
+<br>
 
-### License
-
-This project is licensed under the [MIT License](LICENSE).
+# Happy hacking! 😉🚀
