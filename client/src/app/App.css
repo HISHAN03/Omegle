@@ -82,9 +82,9 @@ body {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 300px;
-  height: 300px;
-  border-radius: 999px;
+  width: 200px;
+  height: 200px;
+ 
   object-fit: cover;
   outline: 2px solid rgb(0, 0, 0);
   overflow: hidden;
@@ -183,13 +183,14 @@ button {
     padding: 40px;
   }
 
+
   #my-video {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    width: 150px;
-    height: 150px;
-    border-radius: 999px;
+    width: 100px;
+    height: 100px;
+
   }
   #video {
     height: 100%;

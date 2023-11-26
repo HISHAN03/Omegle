@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const { handelStart, getType, handelDisconnect } = require("./src/function");
 
 const corsOptions = {
-  origin: ["https://omegle-xb87-4fwakiw0z-hishan03.vercel.app/","https://omegle-xb87.vercel.app","https://omegle-xb87-hishan03.vercel.app","http://localhost:5173"],
+  origin: ["http://localhost:5173"],
   methods: ["GET", "POST"],
 };
 let online = 0;
