@@ -69,4 +69,17 @@ To run the app locally, follow these steps:
      Open your browser and go to http://localhost:5173.
 <br>
 
+## Screenshots📷
+<br>
+
+![Screenshot_20231126_212530](https://github.com/HISHAN03/Gdocs/assets/108483712/3d5ab98f-d16d-4809-9cc8-89eec80702e6)
+
+<br>
+
+![Screenshot_20231126_212120](https://github.com/HISHAN03/Gdocs/assets/108483712/3128fc89-4ff7-4355-b129-cf3b302ee204)
+
+<br>
+
+![Screenshot_20231126_212511](https://github.com/HISHAN03/Gdocs/assets/108483712/f6f1cc9e-58b1-4fb9-82c1-a9db28b3095b)
+
 # Happy hacking! 😉🚀
