@@ -84,9 +84,12 @@ To run the app locally, follow these steps:
 
 <br>
 
-## Reference
--[WebRTC working logic in detail](https://youtu.be/FExZvpVvYxA?si=E6FY2yEtU9ZMfOJS)
--[First version of this code](https://github.com/HISHAN03/WEBRTC)
+## Reference📖
+- [First version of this code](https://github.com/HISHAN03/WEBRTC)
+- [WebRTC working logic in detail](https://youtu.be/FExZvpVvYxA?si=E6FY2yEtU9ZMfOJS)
+
 
 
 # Happy hacking! 😉🚀
+
+<br>
